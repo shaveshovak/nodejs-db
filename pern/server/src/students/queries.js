@@ -1,0 +1,1 @@
+export const getStudentsQuery = "SELECT * FROM students";
