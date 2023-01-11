@@ -1,66 +1,21 @@
 import express  from 'express'; 
-import { v4 as uuidv4 } from 'uuid';
+import { deleteUser, getUser, getUsers, createUser, updateUser } from '../controllers/users.js';
 
-const router = express.Router();
-
-let users = [
-    {
-        name: "John",
-        age: 30,
-        email: "john@gmail.com"
-    },
-    {
-        name: "Jane",
-        age: 43,
-        email: "jane@gmail.com"
-    }
-]; // mocked data 
+const router = express.Router(); 
 
 // get all users 
-router.get('/', (req, res ) => {
-    console.log(users);
-
-    res.send(users);
-});
+router.get('/', getUsers);
 
 // post request 
-router.post('/', (req, res) => {
-    console.log('Post request is done');
+router.post('/', createUser);
 
-    const newUser = req.body; // the information that you are sending to the database
-    const userId = uuidv4();
+// get specific element using ID 
+router.get('/:id', getUser);
 
-    const userWithId = { id: userId, ...newUser };
+// delete specific element using ID 
+router.delete('/:id', deleteUser);
 
-    users.push(userWithId);
-
-    res.send('The new user was addede successfully');
-});
-
-// get user with specific id 
-router.get('/:id', (req, res ) => {
-
-    const { id } = req.params;
-    const foundUser = users.find(user => user.id === id);
-
-    // console.log(req.params);
-    // res.send(req.params);
-
-    console.log(foundUser);
-    res.send(foundUser);
-});
-
-// delete user with specific id 
-router.delete('/:id', (req, res) => {
-    const { id } = req.params;
-
-    // John - 12345
-    // Jane - 3451
-
-    users = users.filter((user) => user.id !== id );
-    console.log(users);
-
-    res.send(`The user with Id: ${id} was removed`);
-});
+// update specific element using ID 
+router.patch(':/id', updateUser);
 
 export default router;
