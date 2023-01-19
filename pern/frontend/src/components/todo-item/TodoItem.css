@@ -1,0 +1,34 @@
+.todo-item {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 1em 0;
+    box-shadow: 0px 0px 3px rgba(0,0,0, 0.2);
+    background-color: #fff;
+    padding: 1em;
+}
+
+.action-btns button {
+    color: #fff;
+    border: 0;
+    margin-left: 1em;
+    padding: 1em;
+    cursor: pointer;
+}
+
+.action-btns button.delete-btn {
+    background-color: #C0392B;
+}
+
+.action-btns button.edit-btn{
+    background-color: #BA4A00 ;
+}
+
+.action-btns button.check-btn{
+    background-color: #229954;
+}
+
+.higlighted {
+    text-decoration: line-through;
+}

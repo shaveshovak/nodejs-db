@@ -20,5 +20,4 @@ app.get("/", (req, res) => {
 }); 
 
 app.use('/users', usersRoutes);
-
 app.use('/cards', cardsRoutes);

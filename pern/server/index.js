@@ -1,10 +1,13 @@
 import express from "express";
+import cors from 'cors';
 import studentRoutes from './src/students/routes.js';
 
 const app = express();
 const PORT = 5300;
 
-app.use(express.json()); 
+// middleware 
+app.use(cors());
+app.use(express.json());  // req.body
 
 app.listen(PORT, () => {
     console.log(`The server is running on ${PORT} port`)
