@@ -1,10 +1,12 @@
 // ES5 - Common JS
 // var fs = require('fs');
+
 // const fs = require('fs/promises')
 
 // ES6  
+// Buffer - encode type utf8
 import fs from 'fs';
-const { writeFile } = fs.promises;
+const { writeFile, readFile } = fs.promises;
 
 const createFile = (fileName, data) => {
     try {
