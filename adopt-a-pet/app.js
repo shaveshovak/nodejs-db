@@ -12,12 +12,13 @@ app.get('/animals', (req, res) => {
     let listOfPets = "";
     let petTypes = Object.keys(pets);
 
+    res.send(petTypes)
+
     petTypes.forEach((type) => {
         listOfPets += `
             <li> <a href="/animals/${type}">${type}</a></li>
         `
     })
-
 
     // res.send('<h1>Adopt a Pet!</h1>');
     res.send(
