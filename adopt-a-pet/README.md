@@ -28,7 +28,7 @@
 <p>Now run your code and try clicking on the links!</p>
 D/ Populate page content
 Now create a new file <code> helper.js</code>. This file will contain an object named pets that contains some data that we can use to populate the webpages.
-<code> const pets = {
+``` const pets = {
    'dogs': [
        {
            'name': 'Spot',
@@ -65,7 +65,7 @@ Now create a new file <code> helper.js</code>. This file will contain an object 
    ]
 }
 module.exports = pets;
-</code>
+```
 
 The pets object contains three elements, one for each animal type. The key is the animal type and the value is a list of objects, each of which contains info about an individual pet.
 
