@@ -28,7 +28,8 @@
 <p>Now run your code and try clicking on the links!</p>
 D/ Populate page content
 Now create a new file <code> helper.js</code>. This file will contain an object named pets that contains some data that we can use to populate the webpages.
-``` const pets = {
+```javascript
+const pets = {
    'dogs': [
        {
            'name': 'Spot',
