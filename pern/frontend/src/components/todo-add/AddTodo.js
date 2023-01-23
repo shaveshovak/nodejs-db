@@ -2,17 +2,18 @@ import axios from "axios";
 import { useState } from "react";
 import './AddTodo.css';
 
-const AddTodo = ({ addItem }) => {
+const AddTodo = () => {
     const [student, setStudent] = useState({
         firstName: '',
         age: 0,
         email: '',
+        lastName: '',
     });
 
     const api_url = 'http://localhost:5300/api/students';
 
     const handleChange = (e) => {
-        setStudent({ ...student, [e.target.name]: e.target.value });
+        setStudent({ ...student, [e.target.name]: e.target.value || '' });
     };
 
     const onSubmitForm = async (e) =>{
@@ -21,11 +22,16 @@ const AddTodo = ({ addItem }) => {
             // axios 
             axios.post(api_url, {
                 name: student.firstName,
+                lastname: student.lastName,
                 email: student.email,
                 age: student.age,
             }).then((res) => {
-                setStudent(res.data);
-                console.log(res.data)
+                setStudent({
+                    firstName: '',
+                    lastName: '',
+                    age: 0,
+                    email: '',
+                });
             });
         } catch(err) {
             console.log(err.message);
@@ -36,9 +42,16 @@ const AddTodo = ({ addItem }) => {
       <form onSubmit={onSubmitForm} className='add-form'>
         <input 
             type='text' 
-            placeholder='Add a name' 
-            value={student.name} 
+            placeholder='Add a first name' 
+            value={student.firstName} 
             name='firstName'
+            onChange={handleChange} 
+        />
+        <input 
+            type='text' 
+            placeholder='Add a last name' 
+            value={student.lastName} 
+            name='lastName'
             onChange={handleChange} 
         />
         <input 

@@ -1,5 +1,5 @@
 import { pool } from "../../db.js";
-import { getStudentsQuery, getStudentQueryById, checkEmailExists, createStudentQuery, updateStudentQuery, deleteStudentQuery } from "./queries.js";
+import { getStudentsQuery, getStudentQueryById, createStudentQuery, updateStudentQuery, deleteStudentQuery } from "./queries.js";
 
 export const getStudents = (req, res) => {
     pool.query(getStudentsQuery, (error, results) => {
@@ -18,16 +18,9 @@ export const getStudentById = (req, res) => {
 };
 
 export const createStudent = (req, res) => {
-    const {  name, age, email } = req.body;
-    // check if email exist
-    // pool.query(checkEmailExists, [email], (error, results) => {
-    //     if(results.rows.length) {
-    //         res.send('Email is already existed');
-    //     }
-    // });
-
+    const {  name, lastName, age, email } = req.body;
     // add student to db 
-    pool.query(createStudentQuery, [name, age, email], (error, results) => {
+    pool.query(createStudentQuery, [name, lastName, age, email], (error, results) => {
         if(error) throw error;
 
         res.status(201).send('Student was successfully created');
@@ -46,9 +39,9 @@ export const deleteStudent = (req, res) => {
 
 export const updateStudent = (req, res) => {
     const id = parseInt(req.params.id);
-    const { name } = req.body; 
+    const { name, age, email, lastname} = req.body; 
 
-    pool.query(updateStudentQuery, [name, id], (error, results) => {
+    pool.query(updateStudentQuery, [name, age, email, lastname, id], (error, results) => {
         if(error) throw error;
         res.status(200).send('Student was successfully updated');
     });
