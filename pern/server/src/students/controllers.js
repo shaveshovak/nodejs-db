@@ -20,12 +20,23 @@ export const getStudentById = (req, res) => {
 export const createStudent = (req, res) => {
     const {  name, lastName, age, email } = req.body;
     // add student to db 
-    pool.query(createStudentQuery, [name, lastName, age, email], (error, results) => {
-        if(error) throw error;
 
-        res.status(201).send('Student was successfully created');
-
-    })
+    pool.query(`SELECT * FROM students WHERE email='${email}'`, (error, result) => {
+        if (error) {
+          throw error;
+        }
+    
+        if (result.rows.length > 0) {
+          res.status(400).send({ error: 'Email already exists' });
+        } else {
+            pool.query(createStudentQuery, [name, lastName, age, email], (error, results) => {
+                if(error) throw error;
+        
+                res.status(201).send('Student was successfully created');
+        
+            })
+        }
+      });
 };
 
 export const deleteStudent = (req, res) => {
