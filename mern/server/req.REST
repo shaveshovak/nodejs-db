@@ -1,0 +1,23 @@
+POST http://localhost:8084/api/todos
+Content-Type: application/json
+
+{
+    "item": "The first todo App"
+}
+
+###
+
+GET http://localhost:8084/api/todos
+
+### 
+
+PATCH http://localhost:8084/api/todos/63e62e65f4a1e5a9c417e0db
+Content-Type: application/json
+
+{
+    "item": "Element was updated 2"
+}
+
+###
+DELETE http://localhost:8084/api/todos/63e62e65f4a1e5a9c417e0db
+Content-Type: application/json
