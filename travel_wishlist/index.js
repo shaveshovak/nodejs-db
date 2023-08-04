@@ -1,6 +1,6 @@
 import express from 'express';
 import dotenv from 'dotenv';
-import studentRoutes from './src/students/routes.js';
+import countriesRoutes from './src/countries/routes.js';
 
 // Load environment variables from .env file
 dotenv.config();
@@ -18,4 +18,4 @@ app.get('/', (req, res) => {
     res.send('Homepage')
 });
 
-app.use('/api/students', studentRoutes); 
+app.use('/api/countries', countriesRoutes); 
