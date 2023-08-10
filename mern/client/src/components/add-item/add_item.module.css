@@ -1,0 +1,15 @@
+.add_block {
+    width: 400px;
+    margin: 1em auto;
+    display: flex;
+}
+
+.add_block input {
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+}
+
+.add_block button {
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+}

@@ -1,0 +1,16 @@
+.list {
+    width: 400px;
+    margin: auto;
+}
+
+.list li {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 1em;
+}
+
+.btn_list {
+    display: flex;
+    gap: 5px;
+}

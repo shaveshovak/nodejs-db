@@ -3,9 +3,9 @@ import pg from 'pg';
 const { Pool }  = pg;
 
 export const pool = new Pool({
-    user: 'your_user_name',
-    host: 'your_hostname',
-    database: 'your_db',
-    password: 'your_password',
+    user: 'ikcarwau',
+    host: 'queenie.db.elephantsql.com',
+    database: 'ikcarwau',
+    password: 'DLHOs10OU8dWAW-1baIraebtpoLPdaBO',
     port: 5432
 });
