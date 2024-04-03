@@ -1,94 +1,146 @@
-var express = require('express');
+// // Exercise 1
+
+const express = require('express');
+const bodyParser = require('body-parser'); 
+const app = express();
+const port = process.env.PORT || 3002;
+const axios = require('axios');
 const fs = require('fs');
-var app = express();
 
-// Exercise 1 
-app.get('/', function(req, res) {
-    res.send('Welcome to the page!');
-});
+// // Middleware to parse form data
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
 
-var server = app.listen(3000, function() {
-    console.log('Server is running at http://localhost:3000');
-});
+const server = app.listen(port, () => console.log('Server is running on port', port));
 
-// Exercise 2 
+// Exercise 2
 
-// PUT request handler for the home page
-app.put('/', (req, res) => {
-    const htmlContent = `
-      <html lang="en">
-      <head>
-        <meta charset="UTF-8">
-        <title>Hello</title>
-      </head>
-      <body>
-        How are you?
-      </body>
-      </html>
-    `;
-  
-    // Write the HTML content to a file
-    fs.writeFile('response.html', htmlContent, (err) => {
-      if (err) {
-        console.error('Error writing file:', err);
-        res.status(500).send('An error occurred while generating the HTML file.');
-      } else {
-        console.log('HTML file generated successfully.');
-        res.sendFile(__dirname + '/response.html');
-      }
-    });
-});
-  
+// app.get('/', (req, res) => {
+//   res.sendFile(__dirname + '/index.html');
+// });
+
 // Exercise 3
-// Handle DELETE requests to the home route
-app.delete('/', (req, res) => {
-    const jsonResponse = {
-      good: "yep"
-    };
-  
-    res.json(jsonResponse);
-});
+// app.delete('/', (req, res) => {
+//   res.json({ good: 'yep' });
+// });
 
+// // Exercise 4
+// const ejs = require('ejs');
 
-// Exercise 4
-// https://ejs.co/#install
-const ejs = require('ejs');
-// Set EJS as the view engine
-app.set('view engine', 'ejs');
+// app.get('/test-ejs', (req, res) => {
+//   const myTitle = "My First Title";
+//   ejs.renderFile(__dirname + '/test.ejs', { myTitle }, (err, html) => {
+//     if (err) throw err;
+//     res.send(html);
+//   });
+// });
 
-// Handle GET requests to the /test-ejs route
-app.get('/test-ejs', (req, res) => {
-    const myTitle = 'My First Title';
-    res.render('test', { myTitle });
-});
+// // Exercise 5
+// app.get('/test-ejs2', (req, res) => {
+//   const users = ['Bob', 'John', 'Jane'];
+//   res.render('test2.ejs', { users });
+// });
 
-// Exercise 5
-// Handle GET requests to the /test-ejs2 route
-app.get('/test-ejs2', (req, res) => {
-    const data = {
-      users: ['Bob', 'John', 'Jane']
-    };
-  
-    res.render('test2', data);
-});
+// // Exercise 6
+// app.get('/uploadTweet', (req, res) => {
+//   res.sendFile(__dirname + '/uploadTweet.html');
+// });
 
-// Exercise 6
-const methodOverride = require('method-override');
-// Use method-override middleware
-app.use(methodOverride('_method'));
+// app.post('/showTweet', (req, res) => {
+//   console.log('userName:', req.body.userName);
+//   console.log('message:', req.body.message);
+// });
 
-// Parse JSON request bodies
-app.use(express.json());
+// // Exercise 7
+// app.get('/searchForm', (req, res) => {
+//   res.sendFile(__dirname + '/searchForm.html');
+// });
 
-// Parse URL-encoded request bodies
-app.use(express.urlencoded({ extended: true }));
+// app.get('/notGoogleSearch', (req, res) => {
+//   const searchQuery = req.query.search;
+//   const date = req.query.date;
+//   console.log('Search Query:', searchQuery);
+//   console.log('Date:', date);
+//   res.send('Form data received successfully!');
+// });
 
-// Set the static file directory (if needed)
-app.use(express.static('public'));
-  
+// // Exercise 8
+// app.get('/number/:id', (req, res) => {
+//   const id = req.params.id;
+//   res.send(`The number is ${id}`);
+// });
 
-// Handle PUT requests to the root route
-app.put('/', (req, res) => {
-    res.send('PUT request received.');
-});
-  
+// // Exercise 9
+// const axios = require('axios');
+
+// app.get('/postlist', async (req, res) => {
+//   try {
+//     const response = await axios.get('http://jsonplaceholder.typicode.com/posts/1');
+//     res.json(response.data);
+//   } catch (error) {
+//     console.error(error);
+//     res.status(500).send('Internal Server Error');
+//   }
+// });
+
+// // Exercise 10
+// app.get('/postlist', async (req, res) => {
+//   try {
+//     const response = await axios.get('http://jsonplaceholder.typicode.com/posts/1');
+//     const data = response.data;
+//     // Write data to a file
+//     fs.writeFile('posts.json', JSON.stringify(data), (err) => {
+//       if (err) throw err;
+//       console.log('Data written to file');
+//     });
+//     res.json(data);
+//   } catch (error) {
+//     console.error(error);
+//     res.status(500).send('Internal Server Error');
+//   }
+// });
+
+// // Exercise 11
+
+// Install PM2 globally: npm install -g pm2
+// Start your Express.js server with PM2: pm2 start app.js --name my-app
+// Display the list of servers: pm2 ls
+// View server logs: pm2 logs
+
+// Exercise 12
+
+// const cluster = require('cluster');
+// const os = require('os');
+// const express = require('express');
+
+// if (cluster.isMaster) {
+//   // Count the number of CPU cores
+//   const numCPUs = os.cpus().length;
+
+//   console.log(`Master ${process.pid} is running`);
+
+//   // Fork workers equal to the number of CPU cores
+//   for (let i = 0; i < numCPUs; i++) {
+//     cluster.fork();
+//   }
+
+//   // Handle worker death and respawn
+//   cluster.on('exit', (worker, code, signal) => {
+//     console.log(`Worker ${worker.process.pid} died`);
+//     console.log('Respawning new worker...');
+//     cluster.fork();
+//   });
+// } else {
+//   // Worker process: create an Express app
+//   const app = express();
+//   const port = process.env.PORT || 3000;
+
+//   app.get('/', (req, res) => {
+//     res.send(`Worker ${cluster.worker.id} responding to request`);
+//   });
+
+//   // Start the server
+//   app.listen(port, () => {
+//     console.log(`Worker ${cluster.worker.id} is running on port ${port}`);
+//   });
+// }
